@@ -6,6 +6,10 @@ import json
 from sphinx.application import Sphinx
 from sphinx.util.fileutil import copy_asset_file
 
+try:
+    from ._version import version as __version__
+except ImportError:
+    __version__ = "1.0.0"
 
 def copy_buttons(app: Sphinx, exc: None) -> None:
     print("[custom-launch-buttons] initialised, adding directories.")
