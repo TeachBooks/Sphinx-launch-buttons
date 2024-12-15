@@ -14,4 +14,4 @@ dependencies = [
 requires-python = ">=3.9"
 
 [tool.setuptools_scm]
-write_to = "src/custom-launch-buttons/_version.py" 
+write_to = "src/sphinx-launch-buttons/_version.py" 
