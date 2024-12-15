@@ -1,7 +1,0 @@
-Metadata-Version: 2.1
-Name: realpython-reader
-Version: 1.0.0
-Summary: Read the latest Real Python tutorials
-Requires-Python: >=3.9
-Requires-Dist: sphinx
-Requires-Dist: ruamel.yaml

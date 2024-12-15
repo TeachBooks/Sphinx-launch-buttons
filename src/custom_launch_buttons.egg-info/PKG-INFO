@@ -1,7 +1,0 @@
-Metadata-Version: 2.1
-Name: custom-launch-buttons
-Version: 1.0.0
-Summary: add custom launch buttons to jupyter-book
-Requires-Python: >=3.9
-Requires-Dist: sphinx
-Requires-Dist: ruamel.yaml

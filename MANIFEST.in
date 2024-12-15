@@ -1,1 +1,1 @@
-include src/custom-launch-buttons/static/*.js
+include src/sphinx-launch-buttons/static/*.js
