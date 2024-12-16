@@ -28,7 +28,7 @@ sphinx-launch-buttons
 
 3. To use the extension in your book, add the extension to the list of Sphinx extra extensions in your `_config.yml` file, (**important**: underscore, not dash this time):
 
-```
+```yaml
 sphinx:
   extra_extensions:
     - custom-launch-buttons
@@ -40,7 +40,7 @@ This section will explain how to create a "Languages" button, like you might be 
 
 1. Include a `_launch_buttons.yml` file in the same location (root directory of your book) as your `_config.yml` file. The following code cell shows the main structure of that file.
 
-```
+```yaml
 buttons:
   - type : dropdown
 
@@ -51,7 +51,7 @@ Here, `buttons` is an array of launch buttons, each can be identified using 2 ty
 
 The button/dropdown can be visualized using either an [svg icon](https://icons.getbootstrap.com/#icons) or text.
 
-```
+```yaml
 buttons:
   - type : dropdown
     label: Language
@@ -61,7 +61,7 @@ buttons:
 ```
 2. Lastly you need to specify the items of your button. So assuming you want to have different language versions, each item will be one of the languages.
 
-```
+```yaml
 buttons:
   - type : dropdown
     label: Language
@@ -87,7 +87,7 @@ You'll need to add (merge) the updated `_config.yml` and the new `_launch_button
 
 ### Example
 
-```
+```yaml
 buttons:
   - type: dropdown
     icon: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-globe" viewBox="0 0 16 16">
