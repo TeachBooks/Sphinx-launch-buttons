@@ -7,7 +7,6 @@ This may have many applications, one of them being that you can create different
 ## What does it do?
 This extension add a button to the top bar which allows you to link to other website. In combination with a translated book on another branch you can use this to create multilingual books.
 
-
 ## Installation
 
 1. Install the `sphinx-launch-buttons` package using `pip` if you'd like to build your book locally:
@@ -96,7 +95,13 @@ buttons:
 
 The code in the above cell is the `_launch_buttons.yml` file of a repository called "files-and-folders". The buttons created look like this:
 
-![Custom button](language_button.PNG)
+```{figure} language_button.PNG
+---
+width: 50%
+name: language_button
+---
+Custom Button
+```
 
 
 ## Contribute
