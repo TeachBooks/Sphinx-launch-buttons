@@ -42,7 +42,7 @@ buttons:
 
 Here, `buttons` is an array of launch buttons, each can be identified using 2 types: 'dropdown' or 'button'. The cell above shows 2 buttons, one of type `dropdown` and one of type `button`.
 
-The button/dropdown can be visualised using either an [svg icon](https://icons.getbootstrap.com/#icons) or text.
+The button/dropdown can be visualized using either an [svg icon](https://icons.getbootstrap.com/#icons) or text.
 
 ```
 buttons:
@@ -52,7 +52,7 @@ buttons:
     icon : <svg> ... 
             </svg> 
 ```
-2. Lastly you need to specifiy the items of your button. So assuming you want to have different language versions, each item will be one of the languages.
+2. Lastly you need to specify the items of your button. So assuming you want to have different language versions, each item will be one of the languages.
 
 ```
 buttons:
