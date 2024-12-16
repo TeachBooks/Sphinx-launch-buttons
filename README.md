@@ -1,4 +1,11 @@
-# Custom launch buttons
+# Multilingual book
+
+```{admonition} User types
+:class: tip
+This page is useful for user type 3, 4 and 5.
+```
+
+{bdg-primary}`Sphinx Extension`
 
 ## Introduction
 The custom launch button extension allows you to create a customizable button in the top right of your jupyter book. 
