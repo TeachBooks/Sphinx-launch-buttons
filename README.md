@@ -34,7 +34,7 @@ sphinx-launch-buttons
 ```yaml
 sphinx:
   extra_extensions:
-    - custom-launch-buttons
+    - sphinx-launch-buttons
 ```
 
 ## Usage
