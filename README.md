@@ -1,5 +1,4 @@
-# Multilingual book
-
+````{margin}
 ```{attributiongrey} Attribution
 :class: attribution
 This page reuses BSD 3-Clause License content from {cite:t}`launch_buttons`. {fa}`quote-left`{ref}`Find out more here.<external_resources>`
@@ -11,8 +10,10 @@ This page is useful for user type 3, 4 and 5.
 ```
 
 {bdg-primary}`Sphinx Extension`
+````
 
-## Introduction
+# Multilingual book
+
 The custom launch button extension allows you to create a customizable button in the top right of your jupyter book. 
 This may have many applications, one of them being that you can create different language versions of the book available for the user. 
 
