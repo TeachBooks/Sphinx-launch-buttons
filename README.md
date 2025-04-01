@@ -98,6 +98,7 @@ The code in the above cell is the `_launch_buttons.yml` file of a repository cal
 
 ![Custom button](language_button.PNG)
 
+An example of this usage in a book can be found in [this book called Files and Folders](https://teachbooks.io/files-and-folders/EN/intro.html}
 
 ## Contribute
 This tool's repository is stored on [GitHub](https://github.com/TeachBooks/Sphinx-launch-buttons). The `README.md` of the branch `manual` is also part of the [TeachBooks manual](https://teachbooks.io/manual/intro.html) as a submodule. If you'd like to contribute, you can create a fork and open a pull request on the [GitHub repository](https://github.com/TeachBooks/Sphinx-launch-buttons). To update the `README.md` shown in the TeachBooks manual, create a fork and open a merge request for the [GitHub repository of the manual](https://github.com/TeachBooks/manual). If you intent to clone the manual including its submodules, clone using: `git clone --recurse-submodulesgit@github.com:TeachBooks/manual.git`.
