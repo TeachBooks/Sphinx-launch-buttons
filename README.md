@@ -71,6 +71,8 @@ buttons:
 ```
 As you can see in the `items:` line, each dropdown option links to the branch of the repository in the respective language.
 
+Note: the `_launch_buttons.yml` file is optional. If it is not present when building HTML, the extension will not install any launch-button assets and no buttons will be shown. Add `_launch_buttons.yml` to enable buttons."
+
 ### Setting up your repository for multilingual book
 
 For the implementation to your book, it is handy to create a branch for each language version you want to offer. Make a new branch using for example main as a source. Assuming we want to create a dutch version of you can call this branch `Dutch` or `Nederlands`. 
