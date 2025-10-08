@@ -13,7 +13,14 @@ display: block; /* Display the dropdown menu on hover */
 document.addEventListener('DOMContentLoaded', function() {
     fetch('_static/_launch_buttons.json')
     .then((response) => response.json())
-    .then((response) => addButtons(response.buttons));
+    .then((response) => {
+        if(!response || !Array.isArray(response.buttons) || response.buttons.length === 0) return;
+        addButtons(response.buttons)
+    })
+    .catch((err) => {
+        // If the file is missing or malformed, do nothing — no buttons should be shown.
+        console.debug('sphinx-launch-buttons: no valid launch buttons JSON found', err);
+    });
 
 });
 

@@ -5,7 +5,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fetch json file with launch buttons
     fetch('_static/_launch_buttons.json')
     .then((response) => response.json())
-    .then((response) => addButtons(response.custom_launch_buttons));
+    .then((response) => {
+        if(!response || !Array.isArray(response.custom_launch_buttons) || response.custom_launch_buttons.length === 0) return;
+        addButtons(response.custom_launch_buttons);
+    })
+    .catch((err) => {
+        // Missing or malformed JSON — nothing to do.
+        console.debug('sphinx-launch-buttons: no valid custom_launch_buttons JSON found', err);
+    });
 
 });
 
