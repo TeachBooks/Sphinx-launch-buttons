@@ -63,6 +63,15 @@ def yaml_to_json(yaml_file: str, json_file: str) -> None:
             json.dump(data, jsonfile, indent=4)
 
 def setup(app: Sphinx) -> dict[str, str]:
-    app.add_js_file('launch_buttons.js')
-    app.connect('build-finished', copy_buttons)
+    # Only register the JS and the build-finished handler if the project provides
+    # a `_launch_buttons.yml` file. If we always add the JS, Sphinx will reference
+    # `launch_buttons.js` even when it's not copied into `_static`, causing a 404.
+    launch_buttons_yaml = os.path.join(getattr(app, 'srcdir', ''), '_launch_buttons.yml')
+    if os.path.exists(launch_buttons_yaml):
+        app.add_js_file('launch_buttons.js')
+        app.connect('build-finished', copy_buttons)
+    else:
+        # No config present: don't register assets or handlers.
+        print('[sphinx-launch-buttons] no _launch_buttons.yml found during setup; not registering assets')
+
     return {'parallel_read_safe': True, 'parallel_write_safe': True}
