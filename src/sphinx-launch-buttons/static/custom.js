@@ -85,11 +85,11 @@ function buildHrefFromMapping(m, siteBaseUrl) {
 
     if(isRoot) {
         if(preservePath) {
-            const pathSegments = baseSegments.concat(restSegments);
+            const pathSegments = baseSegments.concat(restSegments).filter(Boolean);
             const newPath = '/' + pathSegments.join('/');
             return parsedBase.origin.replace(/\/$/, '') + newPath + window.location.search + window.location.hash;
         } else {
-            const newPath = '/' + baseSegments.join('/');
+            const newPath = '/' + baseSegments.filter(Boolean).join('/');
             return parsedBase.origin.replace(/\/$/, '') + newPath + window.location.search + window.location.hash;
         }
     } else {
@@ -99,10 +99,11 @@ function buildHrefFromMapping(m, siteBaseUrl) {
             if(restSegments.length > 1) {
                 newSegments = newSegments.concat(restSegments.slice(1));
             }
+            newSegments = newSegments.filter(Boolean);
             const newPath = '/' + newSegments.join('/');
             return parsedBase.origin.replace(/\/$/, '') + newPath + window.location.search + window.location.hash;
         } else {
-            const newPath = '/' + baseSegments.concat([version]).join('/');
+            const newPath = '/' + baseSegments.concat([version]).filter(Boolean).join('/');
             return parsedBase.origin.replace(/\/$/, '') + newPath + window.location.search + window.location.hash;
         }
     }
