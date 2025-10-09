@@ -40,7 +40,10 @@ def copy_buttons(app: Sphinx, exc: None) -> None:
         json_target = os.path.join(staticdir, '_launch_buttons.json')
 
         try:
-            yaml_to_json(launch_buttons_yaml, json_target)
+            # Use Sphinx's standard `html_baseurl` if provided and pass it to the
+            # json writer so the frontend can build absolute version-switch links.
+            base_url = getattr(app.config, 'html_baseurl', None)
+            yaml_to_json(launch_buttons_yaml, json_target, site_base_url=base_url)
         except Exception as e:
             print(f"[sphinx-launch-buttons] error converting yaml to json: {e}")
 
@@ -55,14 +58,25 @@ def copy_buttons(app: Sphinx, exc: None) -> None:
             print(f"[sphinx-launch-buttons] error copying yaml asset: {e}")
 
 # Function to convert yaml to json to prevent mixing of yaml and json for the user.
-def yaml_to_json(yaml_file: str, json_file: str) -> None:
+def yaml_to_json(yaml_file: str, json_file: str, site_base_url: str | None = None) -> None:
     with open(yaml_file, 'r') as ymlfile:
         yaml = ruamel.yaml.YAML(typ='safe')
-        data = yaml.load(ymlfile)
+        data = yaml.load(ymlfile) or {}
+        # Inject `site_base_url` for frontend JS to read if configured
+        if site_base_url:
+            data['site_base_url'] = site_base_url
         with open(json_file, 'w') as jsonfile:
             json.dump(data, jsonfile, indent=4)
 
 def setup(app: Sphinx) -> dict[str, str]:
+    # Allow users to configure the version root segment used by the JS heuristic.
+    # This does not change runtime behaviour in Python, but documents an option
+    # that the frontend JavaScript can read from a generated JSON if needed in
+    # a future iteration. For now we expose the config value so projects can set
+    # it in their `_config.yml`.
+    app.add_config_value('launch_buttons_version_root', 'workbook', 'env')
+    # Note: the frontend will use the Sphinx `html_baseurl` setting if present
+    # to compute absolute version-switch URLs; no custom base_url is required.
     # Only register the JS and the build-finished handler if the project provides
     # a `_launch_buttons.yml` file. If we always add the JS, Sphinx will reference
     # `launch_buttons.js` even when it's not copied into `_static`, causing a 404.
