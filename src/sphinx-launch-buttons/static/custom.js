@@ -80,17 +80,61 @@ function buildHrefFromMapping(m, siteBaseUrl) {
     const currentSegments = currentPath.split('/').filter(Boolean);
     const restSegments = currentSegments.slice(baseSegments.length);
 
+    // Try to detect the current site's version token from siteBaseUrl
+    // (if provided). We'll only strip a leading segment when it matches
+    // this token — otherwise we preserve the remainder as-is.
+    let versionToken = null;
+    if(siteBaseUrl) {
+        try {
+            const parsedSiteBase = new URL(siteBaseUrl, window.location.origin);
+            const siteBaseSegments = parsedSiteBase.pathname.split('/').filter(Boolean);
+            if(siteBaseSegments.length) {
+                versionToken = siteBaseSegments[siteBaseSegments.length - 1];
+            }
+        } catch (err) {
+            // ignore parse errors
+        }
+    }
+
+    // If preserve_path is explicitly provided, honor it. Otherwise default
+    // to true (preserve the remainder of the path). Root mappings have
+    // special handling below to remove the version token only if present.
     const preservePath = typeof m.preserve_path !== 'undefined' ? !!m.preserve_path : true;
     const isRoot = !!m.root || !version;
 
+    // Helper to remove falsy or literal 'undefined'/'null' strings
+    const cleanSegments = (arr) => {
+        if(!Array.isArray(arr)) return [];
+        const before = arr.slice();
+        const cleaned = arr.filter(s => s && s !== 'undefined' && s !== 'null');
+        if(cleaned.length !== before.length) {
+            // show what was removed to aid debugging
+            const removed = before.filter(x => !(x && x !== 'undefined' && x !== 'null'));
+            console.warn('sphinx-launch-buttons: removed invalid path segments', removed, 'from', before);
+        }
+        return cleaned;
+    };
+
+    // Compute final href in one place so we can log inputs and output for debugging
+    let finalHref = null;
+
     if(isRoot) {
         if(preservePath) {
-            const pathSegments = baseSegments.concat(restSegments).filter(Boolean);
-            const newPath = '/' + pathSegments.join('/');
-            return parsedBase.origin.replace(/\/$/, '') + newPath + window.location.search + window.location.hash;
+            // Only strip a leading version-like token when it actually
+            // appears at the start of the current path. Otherwise keep the
+            // current remainder (computed earlier) untouched.
+            let remainder;
+            if(versionToken && currentSegments.length > 0 && currentSegments[0] === versionToken) {
+                remainder = currentSegments.slice(1);
+            } else {
+                remainder = restSegments;
+            }
+            const pathSegments = cleanSegments(remainder);
+            const newPath = pathSegments.length ? '/' + pathSegments.join('/') : '/';
+            finalHref = parsedBase.origin.replace(/\/$/, '') + newPath + window.location.search + window.location.hash;
         } else {
-            const newPath = '/' + baseSegments.filter(Boolean).join('/');
-            return parsedBase.origin.replace(/\/$/, '') + newPath + window.location.search + window.location.hash;
+            const newPath = '/' + cleanSegments(baseSegments).join('/');
+            finalHref = parsedBase.origin.replace(/\/$/, '') + newPath + window.location.search + window.location.hash;
         }
     } else {
         if(preservePath) {
@@ -99,14 +143,35 @@ function buildHrefFromMapping(m, siteBaseUrl) {
             if(restSegments.length > 1) {
                 newSegments = newSegments.concat(restSegments.slice(1));
             }
-            newSegments = newSegments.filter(Boolean);
+            newSegments = cleanSegments(newSegments);
             const newPath = '/' + newSegments.join('/');
-            return parsedBase.origin.replace(/\/$/, '') + newPath + window.location.search + window.location.hash;
+            finalHref = parsedBase.origin.replace(/\/$/, '') + newPath + window.location.search + window.location.hash;
         } else {
-            const newPath = '/' + baseSegments.concat([version]).filter(Boolean).join('/');
-            return parsedBase.origin.replace(/\/$/, '') + newPath + window.location.search + window.location.hash;
+            const newPath = '/' + cleanSegments(baseSegments.concat([version])).join('/');
+            finalHref = parsedBase.origin.replace(/\/$/, '') + newPath + window.location.search + window.location.hash;
         }
     }
+
+    // Debug output to help trace invalid/ambiguous mappings
+    try {
+        console.debug('sphinx-launch-buttons: buildHrefFromMapping debug', {
+            mapping: m,
+            effectiveBase: effectiveBase,
+            parsedBasePathname: parsedBase.pathname,
+            baseSegments: baseSegments,
+            currentPath: currentPath,
+            currentSegments: currentSegments,
+            restSegments: restSegments,
+            preservePath: preservePath,
+            isRoot: isRoot,
+            version: version,
+            finalHref: finalHref
+        });
+    } catch (err) {
+        // swallow any debug problems
+    }
+
+    return finalHref;
 }
 
 let addButtons = (buttons, siteBase) => {
