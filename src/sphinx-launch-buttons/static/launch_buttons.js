@@ -13,8 +13,8 @@ display: block; /* Display the dropdown menu on hover */
 document.addEventListener('DOMContentLoaded', function() {
     // Calculate the path back to root using pagename depth
     let pathToRoot = './';
-    if (typeof DOCUMENTATION_OPTIONS !== 'undefined' && DOCUMENTATION_OPTIONS.PAGENAME) {
-        const depth = DOCUMENTATION_OPTIONS.PAGENAME.split('/').length - 1;
+    if (typeof DOCUMENTATION_OPTIONS !== 'undefined' && DOCUMENTATION_OPTIONS.pagename) {
+        const depth = DOCUMENTATION_OPTIONS.pagename.split('/').length - 1;
         pathToRoot = depth > 0 ? '../'.repeat(depth) : './';
     }
     const jsonPath = pathToRoot + '_static/_launch_buttons.json';
