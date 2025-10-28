@@ -3,7 +3,15 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     // Fetch json file with launch buttons
-    fetch('_static/_launch_buttons.json')
+    // Calculate the path back to root using pagename depth
+    let pathToRoot = './';
+    if (typeof DOCUMENTATION_OPTIONS !== 'undefined' && DOCUMENTATION_OPTIONS.pagename) {
+        const depth = DOCUMENTATION_OPTIONS.pagename.split('/').length - 1;
+        pathToRoot = depth > 0 ? '../'.repeat(depth) : './';
+    }
+    const jsonPath = pathToRoot + '_static/_launch_buttons.json';
+    
+    fetch(jsonPath)
     .then((response) => response.json())
     .then((response) => {
         if(!response || !Array.isArray(response.custom_launch_buttons) || response.custom_launch_buttons.length === 0) return;

@@ -11,7 +11,15 @@ display: block; /* Display the dropdown menu on hover */
 
 // MAIN => hook into the DOM and add the buttons
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('_static/_launch_buttons.json')
+    // Calculate the path back to root using pagename depth
+    let pathToRoot = './';
+    if (typeof DOCUMENTATION_OPTIONS !== 'undefined' && DOCUMENTATION_OPTIONS.pagename) {
+        const depth = DOCUMENTATION_OPTIONS.pagename.split('/').length - 1;
+        pathToRoot = depth > 0 ? '../'.repeat(depth) : './';
+    }
+    const jsonPath = pathToRoot + '_static/_launch_buttons.json';
+    
+    fetch(jsonPath)
     .then((response) => response.json())
     .then((response) => {
         if(!response || !Array.isArray(response.buttons) || response.buttons.length === 0) return;
