@@ -3,7 +3,13 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     // Fetch json file with launch buttons
-    fetch('_static/_launch_buttons.json')
+    // Use DOCUMENTATION_OPTIONS.URL_ROOT to construct the correct path from any page depth
+    const urlRoot = (typeof DOCUMENTATION_OPTIONS !== 'undefined' && DOCUMENTATION_OPTIONS.URL_ROOT) 
+                    ? DOCUMENTATION_OPTIONS.URL_ROOT 
+                    : '../';
+    const jsonPath = urlRoot + '_static/_launch_buttons.json';
+    
+    fetch(jsonPath)
     .then((response) => response.json())
     .then((response) => {
         if(!response || !Array.isArray(response.custom_launch_buttons) || response.custom_launch_buttons.length === 0) return;

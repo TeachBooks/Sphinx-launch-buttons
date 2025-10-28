@@ -11,7 +11,14 @@ display: block; /* Display the dropdown menu on hover */
 
 // MAIN => hook into the DOM and add the buttons
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('_static/_launch_buttons.json')
+    // Use DOCUMENTATION_OPTIONS.URL_ROOT (provided by Sphinx) to construct the correct path
+    // from any page depth. Falls back to '../' if not available.
+    const urlRoot = (typeof DOCUMENTATION_OPTIONS !== 'undefined' && DOCUMENTATION_OPTIONS.URL_ROOT) 
+                    ? DOCUMENTATION_OPTIONS.URL_ROOT 
+                    : '../';
+    const jsonPath = urlRoot + '_static/_launch_buttons.json';
+    
+    fetch(jsonPath)
     .then((response) => response.json())
     .then((response) => {
         if(!response || !Array.isArray(response.buttons) || response.buttons.length === 0) return;
