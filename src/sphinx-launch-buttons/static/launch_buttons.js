@@ -11,12 +11,13 @@ display: block; /* Display the dropdown menu on hover */
 
 // MAIN => hook into the DOM and add the buttons
 document.addEventListener('DOMContentLoaded', function() {
-    // Use DOCUMENTATION_OPTIONS.URL_ROOT (provided by Sphinx) to construct the correct path
-    // from any page depth. Falls back to '../' if not available.
-    const urlRoot = (typeof DOCUMENTATION_OPTIONS !== 'undefined' && DOCUMENTATION_OPTIONS.URL_ROOT) 
-                    ? DOCUMENTATION_OPTIONS.URL_ROOT 
-                    : '../';
-    const jsonPath = urlRoot + '_static/_launch_buttons.json';
+    // Calculate the path back to root using pagename depth
+    let pathToRoot = './';
+    if (typeof DOCUMENTATION_OPTIONS !== 'undefined' && DOCUMENTATION_OPTIONS.PAGENAME) {
+        const depth = DOCUMENTATION_OPTIONS.PAGENAME.split('/').length - 1;
+        pathToRoot = depth > 0 ? '../'.repeat(depth) : './';
+    }
+    const jsonPath = pathToRoot + '_static/_launch_buttons.json';
     
     fetch(jsonPath)
     .then((response) => response.json())
