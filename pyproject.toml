@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "sphinx-launch-buttons"
 dynamic = ["version"]
-description = "add custom launch buttons to jupyter-book"
+description = "add custom launch buttons to shpinx / jupyter-book / TeachBook"
 readme = { file = "README.md", content-type = "text/markdown" }
 dependencies = [
     "sphinx",

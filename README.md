@@ -17,7 +17,8 @@ This page is useful for user type 3, 4 and 5.
 
 # Multilingual book
 
-The custom launch button extension allows you to create a customizable button in the top right of your jupyter book. 
+The custom launch button extension allows you to create a customizable button in the top right of your jupyter v1 / TeachBook. 
+
 This may have many applications, one of them being that you can create different language versions of the book available for the user. 
 
 ## What does it do?
@@ -85,6 +86,8 @@ buttons:
         url: url of branch
 ```
 As you can see in the `items:` line, each dropdown option links to the branch of the repository in the respective language.
+
+Note: the `_launch_buttons.yml` file is optional. If it is not present when building HTML, the extension will not install any launch-button assets and no buttons will be shown. Add `_launch_buttons.yml` to enable buttons."
 
 ### Setting up your repository for multilingual book
 
