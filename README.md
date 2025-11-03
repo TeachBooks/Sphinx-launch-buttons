@@ -1,7 +1,7 @@
 # Custom launch buttons
 
-## Introduction
-The custom launch button extension allows you to create a customizable button in the top right of your jupyter book. 
+The custom launch button extension allows you to create a customizable button in the top right of your jupyter v1 / TeachBook. 
+
 This may have many applications, one of them being that you can create different language versions of the book available for the user. 
 
 ## What does it do?
