@@ -12,8 +12,6 @@ except ImportError:
     __version__ = "1.0.0"
 
 def copy_buttons(app: Sphinx, exc: None) -> None:
-    print("[sphinx-launch-buttons] initialised, adding directories.")
-
     # Define path to js file 
     current_dir = os.path.dirname(__file__)
     js_file = os.path.join(current_dir, 'static', 'launch_buttons.js')
@@ -70,8 +68,5 @@ def setup(app: Sphinx) -> dict[str, str]:
     if os.path.exists(launch_buttons_yaml):
         app.add_js_file('launch_buttons.js')
         app.connect('build-finished', copy_buttons)
-    else:
-        # No config present: don't register assets or handlers.
-        print('[sphinx-launch-buttons] no _launch_buttons.yml found during setup; not registering assets')
 
     return {'parallel_read_safe': True, 'parallel_write_safe': True}
