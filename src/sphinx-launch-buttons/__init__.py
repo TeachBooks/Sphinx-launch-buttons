@@ -70,7 +70,5 @@ def setup(app: Sphinx) -> dict[str, str]:
     if os.path.exists(launch_buttons_yaml):
         app.add_js_file('launch_buttons.js')
         app.connect('build-finished', copy_buttons)
-    else:
-        # No config present: don't register assets or handlers.
 
     return {'parallel_read_safe': True, 'parallel_write_safe': True}
