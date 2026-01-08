@@ -12,8 +12,6 @@ except ImportError:
     __version__ = "1.0.0"
 
 def copy_buttons(app: Sphinx, exc: None) -> None:
-    print("[sphinx-launch-buttons] initialised, adding directories.")
-
     # Define path to js file 
     current_dir = os.path.dirname(__file__)
     js_file = os.path.join(current_dir, 'static', 'launch_buttons.js')
