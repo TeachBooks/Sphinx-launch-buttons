@@ -72,6 +72,5 @@ def setup(app: Sphinx) -> dict[str, str]:
         app.connect('build-finished', copy_buttons)
     else:
         # No config present: don't register assets or handlers.
-        print('[sphinx-launch-buttons] no _launch_buttons.yml found during setup; not registering assets')
 
     return {'parallel_read_safe': True, 'parallel_write_safe': True}
